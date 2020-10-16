@@ -1,8 +1,8 @@
 # typings
 
-<a href="https://typings.gg" target="_blank">typings.gg</a> is a sleek and modern typing test website. it supports many custom themes
+<a href="https://808.me/typings/" target="_blank">808.me/typings/</a> is a sleek and modern typing test website. it supports many custom themes
 
-![typings.gg](img/typings-screen-shot.png)
+![808.me/typings](img/typings-screen-shot.png)
 
 ## theme
 
@@ -97,7 +97,3 @@ in this menu you can see all the available themes to choose from, along with a s
 wpm: total number of characters (including spaces) of words you got right divided by five then divided by the time starting from first character typed
 
 acc: total number of characters (including spaces) of words you got right divided by all character in the list of words
-
-## support
-
-- <a href="https://www.paypal.me/briano1905" target="_blank">PayPal</a>
