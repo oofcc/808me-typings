@@ -18,7 +18,7 @@ let timerActive = false;
 let punctuation = false;
 
 // Get cookies
-getCookie('theme') === '' ? setTheme('light') : setTheme(getCookie('theme'));
+getCookie('theme') === '' ? void 0 : setTheme(getCookie('theme'));
 getCookie('language') === '' ? setLanguage('english') : setLanguage(getCookie('language'));
 getCookie('wordCount') === '' ? setWordCount(50) : setWordCount(getCookie('wordCount'));
 getCookie('timeCount') === '' ? setTimeCount(60) : setTimeCount(getCookie('timeCount'));
@@ -240,6 +240,7 @@ function showResult() {
 // Command actions
 document.addEventListener('keydown', e => {
   // Modifiers Windows: [Alt], Mac: [Cmd + Ctrl]
+  
   if (e.altKey || (e.metaKey && e.ctrlKey)) {
     // [mod + t] => Change the theme
     if (e.key === 't') {
@@ -266,6 +267,7 @@ document.addEventListener('keydown', e => {
     }
   } else if (e.key === 'Escape') {
     setText(e);
+    // console.log(e.key)
   }
 });
 
