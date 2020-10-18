@@ -1,13 +1,8 @@
-$(function () 
-{
-    $(document).keydown(function (k) 
-    {
+$(function () {
+    $(document).keydown(function (k)  {
         realWPM = Math.round((error_keystrokes / 5) / ((60.01 - countdown) / 60));
         
-	if(realWPM < 0 || realWPM > 400)
-    	{
-        	realWPM = 0;
-    	}
+	if(realWPM < 0 || realWPM > 400){realWPM = 0;}
 
         $('#preview').html("<font size='+3'><b>WPM:</b> " + 
         realWPM + "<br><b>Key Strokes:</b> " + 

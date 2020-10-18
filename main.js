@@ -1,34 +1,9 @@
-// Get document element
-const textDisplay = document.querySelector('#text-display');
-const inputField = document.querySelector('#input-field');
 
-// Initialize typing mode variables
-let typingMode = 'wordcount';
-let wordCount;
-let timeCount;
-
-// Initialize dynamic variables
-let randomWords = [];
-let wordList = [];
-let currentWord = 0;
-let correctKeys = 0;
-let startDate = 0;
-let timer;
-let timerActive = false;
-let punctuation = false;
-
-// Get cookies
-getCookie('theme') === '' ? void 0 : setTheme(getCookie('theme'));
-getCookie('language') === '' ? setLanguage('english') : setLanguage(getCookie('language'));
-getCookie('wordCount') === '' ? setWordCount(50) : setWordCount(getCookie('wordCount'));
-getCookie('timeCount') === '' ? setTimeCount(60) : setTimeCount(getCookie('timeCount'));
-getCookie('typingMode') === '' ? setTypingMode('wordcount') : setTypingMode(getCookie('typingMode'));
-getCookie('punctuation') === '' ? setPunctuation('false') : setPunctuation(getCookie('punctuation'));
 
 // Find a list of words and display it to textDisplay
 function setText(e) {
   e = e || window.event;
-  var keepWordList = e && e.shiftKey;
+  let keepWordList = e && e.shiftKey;
 
   // Reset
   if (!keepWordList) {
@@ -59,11 +34,11 @@ function setText(e) {
 
     case 'time':
       textDisplay.style.height = '3.2rem';
-      document.querySelector(`#tc-${timeCount}`).innerHTML = timeCount;
+      // document.querySelector(`#tc-${timeCount}`).innerHTML = timeCount;
       textDisplay.innerHTML = '';
       if (!keepWordList) {
         wordList = [];
-        for (i = 0; i < 500; i++) {
+        for (let i = 0; i < 500; i++) {
           let n = Math.floor(Math.random() * randomWords.length);
           wordList.push(randomWords[n]);
         }
@@ -81,7 +56,7 @@ function addPunctuations() {
     wordList[0] = wordList[0][0].toUpperCase() + wordList[0].slice(1);
 
     // Add comma, fullstop, question mark, exclamation mark, semicolon. Capitalize the next word
-    for (i = 0; i < wordList.length; i++) {
+    for (let i = 0; i < wordList.length; i++) {
       const ran = Math.random();
       if (i < wordList.length - 1) {
         if (ran < 0.03) {
@@ -116,101 +91,6 @@ function showText() {
   textDisplay.firstChild.classList.add('highlight');
 }
 
-// Key is pressed in input field
-inputField.addEventListener('keydown', e => {
-  // Add wrong class to input field
-  switch (typingMode) {
-    case 'wordcount':
-      if (currentWord < wordList.length) inputFieldClass();
-    case 'time':
-      if (timerActive) inputFieldClass();
-  }
-  function inputFieldClass() {
-    if (e.key >= 'a' && e.key <= 'z' || (e.key === `'` || e.key === ',' || e.key === '.' || e.key === ';')) {
-      let inputWordSlice = inputField.value + e.key;
-      let currentWordSlice = wordList[currentWord].slice(0, inputWordSlice.length);
-      inputField.className = inputWordSlice === currentWordSlice ? '' : 'wrong';
-    } else if (e.key === 'Backspace') {
-      let inputWordSlice = e.ctrlKey ? '' : inputField.value.slice(0, inputField.value.length - 1);
-      let currentWordSlice = wordList[currentWord].slice(0, inputWordSlice.length);
-      inputField.className = inputWordSlice === currentWordSlice ? '' : 'wrong';
-    } else if (e.key === ' ') {
-      inputField.className = '';
-    }
-  }
-
-  // If it is the first character entered
-  if (currentWord === 0 && inputField.value === '') {
-    switch (typingMode) {
-      case 'wordcount':
-        startDate = Date.now();
-        break;
-
-      case 'time':
-        if (!timerActive) {
-          startTimer(timeCount);
-          timerActive = true;
-        }
-        function startTimer(time) {
-          if (time > 0) {
-            document.querySelector(`#tc-${timeCount}`).innerHTML = time;
-            timer = setTimeout(() => {
-              time--;
-              startTimer(time);
-            }, 1000);
-          } else {
-            timerActive = false;
-            textDisplay.style.display = 'none';
-            inputField.className = '';
-            document.querySelector(`#tc-${timeCount}`).innerHTML = timeCount;
-            showResult();
-          }
-        }
-    }
-  }
-
-  // If it is the space key check the word and add correct/wrong class
-  if (e.key === ' ') {
-    e.preventDefault();
-
-    if (inputField.value !== '') {
-      // Scroll down text when reach new line
-      if (typingMode === 'time') {
-        const currentWordPosition = textDisplay.childNodes[currentWord].getBoundingClientRect();
-        const nextWordPosition = textDisplay.childNodes[currentWord + 1].getBoundingClientRect();
-        if (currentWordPosition.top < nextWordPosition.top) {
-          for (i = 0; i < currentWord + 1; i++) textDisplay.childNodes[i].style.display = 'none';
-        }
-      }
-
-      // If it is not the last word increment currentWord,
-      if (currentWord < wordList.length - 1) {
-        if (inputField.value === wordList[currentWord]) {
-          textDisplay.childNodes[currentWord].classList.add('correct');
-          correctKeys += wordList[currentWord].length + 1;
-        } else {
-          textDisplay.childNodes[currentWord].classList.add('wrong');
-        }
-        textDisplay.childNodes[currentWord + 1].classList.add('highlight');
-      } else if (currentWord === wordList.length - 1) {
-        textDisplay.childNodes[currentWord].classList.add('wrong');
-        showResult();
-      }
-
-      inputField.value = '';
-      currentWord++;
-    }
-
-    // Else if it is the last word and input word is correct show the result
-  } else if (currentWord === wordList.length - 1) {
-    if (inputField.value + e.key === wordList[currentWord]) {
-      textDisplay.childNodes[currentWord].classList.add('correct');
-      correctKeys += wordList[currentWord].length;
-      currentWord++;
-      showResult();
-    }
-  }
-});
 
 // Calculate and display result
 function showResult() {
@@ -228,7 +108,7 @@ function showResult() {
       words = correctKeys / 5;
       minute = timeCount / 60;
       let sumKeys = -1;
-      for (i = 0; i < currentWord; i++) {
+      for (let i = 0; i < currentWord; i++) {
         sumKeys += wordList[i].length + 1;
       }
       acc = acc = Math.min(Math.floor((correctKeys / sumKeys) * 100), 100);
@@ -237,39 +117,6 @@ function showResult() {
   document.querySelector('#right-wing').innerHTML = `WPM: ${wpm} / ACC: ${acc}`;
 }
 
-// Command actions
-document.addEventListener('keydown', e => {
-  // Modifiers Windows: [Alt], Mac: [Cmd + Ctrl]
-  
-  if (e.altKey || (e.metaKey && e.ctrlKey)) {
-    // [mod + t] => Change the theme
-    if (e.key === 't') {
-      setTheme(inputField.value);
-    }
-    // [mod + l] => Change the language
-    if (e.key === 'l') {
-      setLanguage(inputField.value);
-    }
-
-    // [mod + m] => Change the typing mode
-    if (e.key === 'm') {
-      setTypingMode(inputField.value);
-    }
-
-    // [mod + p] => Change punctuation active
-    if (e.key === 'p') {
-      setPunctuation(inputField.value);
-    }
-  } else if (!document.querySelector('#theme-center').classList.contains('hidden')) {
-    if (e.key === 'Escape'){
-      hideThemeCenter();
-      inputField.focus();
-    }
-  } else if (e.key === 'Escape') {
-    setText(e);
-    // console.log(e.key)
-  }
-});
 
 function setTheme(_theme) {
   const theme = _theme.toLowerCase();
@@ -290,6 +137,8 @@ function setTheme(_theme) {
     })
     .catch(err => console.error(err));
 }
+
+
 
 function setLanguage(_lang) {
   const lang = _lang.toLowerCase();
@@ -316,8 +165,12 @@ function setLanguage(_lang) {
     .catch(err => console.error(err));
 }
 
+
+
 function setTypingMode(_mode) {
   const mode = _mode.toLowerCase();
+  console.log(mode,bar_mode_i);
+  bar_mode_i.textContent = mode
   switch (mode) {
     case 'wordcount':
       typingMode = mode;
@@ -354,35 +207,49 @@ function setPunctuation(_punc) {
 function setWordCount(wc) {
   setCookie('wordCount', wc, 90);
   wordCount = wc;
-  document.querySelectorAll('#word-count > span').forEach(e => (e.style.borderBottom = ''));
-  document.querySelector(`#wc-${wordCount}`).style.borderBottom = '2px solid';
+  // document.querySelectorAll('#word-count > span').forEach(e => {
+    bar_words_span.forEach(e => {
+    let n = e.textContent    
+    if(e.style.getPropertyValue('border-bottom')!=='') {
+      if(n!= wc) e.style.removeProperty('border-bottom')
+    }else{
+      if(n== wc) e.style.setProperty('border-bottom','2px solid')
+    }
+
+  });
+  // document.querySelector(`#wc-${wordCount}`).style.borderBottom = '2px solid';
   setText();
 }
 
-function setTimeCount(tc) {
-  setCookie('timeCount', tc, 90);
-  timeCount = tc;
-  document.querySelectorAll('#time-count > span').forEach(e => {
-    e.style.borderBottom = '';
-    e.innerHTML = e.id.substring(3, 6);
+function setTimeCount(c) {
+  setCookie('timeCount', c, 90);
+  timeCount = c;
+  // document.querySelectorAll('#time-count > span').forEach(e => {
+    bar_time_span.forEach(e => {
+    let n = e.textContent    
+    if(e.style.getPropertyValue('border-bottom')!=='') {
+      if(n!= c) e.style.removeProperty('border-bottom')
+    }else{
+      if(n== c) e.style.setProperty('border-bottom','2px solid')
+    }
   });
-  document.querySelector(`#tc-${timeCount}`).style.borderBottom = '2px solid';
+  // document.querySelector(`#tc-${timeCount}`).style.borderBottom = '2px solid';
   setText();
 }
 
 function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
+  let d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  var expires = 'expires=' + d.toUTCString();
+  let expires = 'expires=' + d.toUTCString();
   document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 
 function getCookie(cname) {
-  var name = cname + '=';
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
+  let name = cname + '=';
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
     while (c.charAt(0) == ' ') {
       c = c.substring(1);
     }
@@ -393,7 +260,7 @@ function getCookie(cname) {
   return '';
 }
 
-showAllThemes();
+
 function showAllThemes(){
     fetch(`themes/theme-list.json`)
     .then(response => {
@@ -403,12 +270,15 @@ function showAllThemes(){
           .then(body => {
             let themes = JSON.parse(body);
             let keys = Object.keys(themes);
-            let i;
-            for(i = 0;i < keys.length; i ++){
+            // let i;
+            for(let i = 0;i < keys.length; i ++){
 
               let theme = document.createElement('div');
               theme.setAttribute('class', 'theme-button');
-              theme.setAttribute('onClick', `setTheme('${keys[i]}')`);
+              // theme.setAttribute('onClick', `setTheme('${keys[i]}')`);
+
+              theme.addEventListener('click',()=>{setTheme(keys[i])})
+
               theme.setAttribute('id', keys[i]);
 
               // set tabindex to current theme index + 4 for the test page
@@ -440,22 +310,228 @@ function showAllThemes(){
     .catch(err => console.error(err));
 }
 
-// enter to open theme area
-document.getElementById('show-themes').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    showThemeCenter();
-    inputField.focus();
-  }
-});
+
 
 function showThemeCenter() {
-  document.getElementById('theme-center').classList.remove('hidden');
-  document.getElementById('command-center').classList.add('hidden');
+  el_theme_center.classList.remove('hidden');
+  el_command_center.classList.add('hidden');
 }
 
 function hideThemeCenter() {
-  document.getElementById('theme-center').classList.add('hidden');
-  document.getElementById('command-center').classList.remove('hidden');
+  el_theme_center.classList.add('hidden');
+  el_command_center.classList.remove('hidden');
 }
 
+
+
+
+// Get document element
+const textDisplay = document.getElementById('text-display')
+  ,inputField = document.getElementById('input-field')
+  ,el_theme_center = document.getElementById('theme-center')
+  ,el_command_center = document.getElementById('command-center')
+  ,bar_time_span = document.getElementById('time-count').querySelectorAll('span')
+  ,bar_words_span = document.getElementById('word-count').querySelectorAll('span')
+  ,bar_time_active = document.getElementById('time-count').querySelector('i')
+  ,bar_mode_i = document.getElementById('command-center').querySelector('i')
+
+  // console.log(bar_mode_i);
+  // bar_mode_i.textContent ='mode'
+
+// Initialize typing mode variables
+let typingMode = 'wordcount';
+let wordCount;
+let timeCount;
+
+// Initialize dynamic variables
+let randomWords = [];
+let wordList = [];
+let currentWord = 0;
+let correctKeys = 0;
+let startDate = 0;
+let timer;
+let timerActive = false;
+let punctuation = false;
+
+// Get cookies
+const def_theme_name = getCookie('theme')||'light'
+  ,def_language = getCookie('language')||'english'
+  ,def_word_count = getCookie('wordCount')|| 50
+  ,def_time_count = getCookie('timeCount')|| 60
+  ,def_type_mode = getCookie('typingMode') || 'wordcount'
+  ,def_punctuation = getCookie('punctuation') || 'false'
+
+;
+
+setTheme(def_theme_name)
+setLanguage(def_language)
+setWordCount(def_word_count)
+setTimeCount(def_time_count)
+setTypingMode(def_type_mode)
+setPunctuation(def_punctuation)
+
+
+
+
+
+
+// Command actions
+document.addEventListener('keydown', e => {
+  // Modifiers Windows: [Alt], Mac: [Cmd + Ctrl]
+  
+  if(e.altKey ) {
+    console.log(e.key)
+
+  }
+
+  if (e.altKey || (e.metaKey && e.ctrlKey)) {
+    // [mod + t] => Change the theme
+    if (e.key === 't') {
+      setTheme(inputField.value);
+    }
+    // [mod + l] => Change the language
+    if (e.key === 'l') {
+      setLanguage(inputField.value);
+    }
+
+    // [mod + m] => Change the typing mode
+    if (e.key === 'm') {
+      setTypingMode(inputField.value);
+    }
+
+    // [mod + p] => Change punctuation active
+    if (e.key === 'p') {
+      setPunctuation(inputField.value);
+    }
+  } else if (!el_theme_center.classList.contains('hidden')) {
+    if (e.key === 'Escape'){
+      hideThemeCenter();
+      inputField.focus();
+    }
+  } else if (e.key === 'Escape') {
+    setText(e);
+    // console.log(e.key)
+  }
+});
+
+function startTimer(time) {
+  if (time > 0) {
+      // bar_time_active.textContent= time
+      bar_mode_i.textContent= time
+    timer = setTimeout(() => {
+      time--;
+      startTimer(time);
+    }, 1000);
+  } else {
+    timerActive = false;
+    textDisplay.style.display = 'none';
+    inputField.className = '';
+    // document.querySelector(`#tc-${timeCount}`).innerHTML = timeCount;
+    // bar_time_active.textContent = def_type_mode
+    bar_mode_i.textContent = def_type_mode
+    showResult();
+  }
+}
+
+function inputFieldClass2(e) {
+  if (e.key >= 'a' && e.key <= 'z' || (e.key === `'` || e.key === ',' || e.key === '.' || e.key === ';')) {
+    let inputWordSlice = inputField.value + e.key;
+    let currentWordSlice = wordList[currentWord].slice(0, inputWordSlice.length);
+    inputField.className = inputWordSlice === currentWordSlice ? '' : 'wrong';
+  } else if (e.key === 'Backspace') {
+    let inputWordSlice = e.ctrlKey ? '' : inputField.value.slice(0, inputField.value.length - 1);
+    let currentWordSlice = wordList[currentWord].slice(0, inputWordSlice.length);
+    inputField.className = inputWordSlice === currentWordSlice ? '' : 'wrong';
+  } else if (e.key === ' ') {
+    inputField.className = '';
+  }
+}
+
+// Key is pressed in input field
+inputField.addEventListener('keydown', e => {
+  // Add wrong class to input field
+  switch (typingMode) {
+    case 'wordcount':
+      if (currentWord < wordList.length) inputFieldClass2(e);
+    case 'time':
+      if (timerActive) inputFieldClass2(e);
+  }
+
+
+  // If it is the first character entered
+  if (currentWord === 0 && inputField.value === '') {
+    switch (typingMode) {
+      case 'wordcount':
+        startDate = Date.now();
+        break;
+
+      case 'time':
+        if (!timerActive) {
+          startTimer(timeCount);
+          timerActive = true;
+        }        
+    }
+  }
+
+  // If it is the space key check the word and add correct/wrong class
+  if (e.key === ' ') {
+    e.preventDefault();
+
+    if (inputField.value !== '') {
+      // Scroll down text when reach new line
+      if (typingMode === 'time') {
+        const currentWordPosition = textDisplay.childNodes[currentWord].getBoundingClientRect();
+        const nextWordPosition = textDisplay.childNodes[currentWord + 1].getBoundingClientRect();
+        if (currentWordPosition.top < nextWordPosition.top) {
+          for (let i = 0; i < currentWord + 1; i++) textDisplay.childNodes[i].style.display = 'none';
+        }
+      }
+
+      // If it is not the last word increment currentWord,
+      if (currentWord < wordList.length - 1) {
+        if (inputField.value === wordList[currentWord]) {
+          textDisplay.childNodes[currentWord].classList.add('correct');
+          correctKeys += wordList[currentWord].length + 1;
+        } else {
+          textDisplay.childNodes[currentWord].classList.add('wrong');
+        }
+        textDisplay.childNodes[currentWord + 1].classList.add('highlight');
+      } else if (currentWord === wordList.length - 1) {
+        textDisplay.childNodes[currentWord].classList.add('wrong');
+        showResult();
+      }
+
+      inputField.value = '';
+      currentWord++;
+    }
+
+    // Else if it is the last word and input word is correct show the result
+  } else if (currentWord === wordList.length - 1) {
+    if (inputField.value + e.key === wordList[currentWord]) {
+      textDisplay.childNodes[currentWord].classList.add('correct');
+      correctKeys += wordList[currentWord].length;
+      currentWord++;
+      showResult();
+    }
+  }
+});
+
+
+document.getElementById('show-themes').addEventListener('click', showThemeCenter);
+document.getElementById('redo-button').addEventListener('click',setText);
+document.getElementById('left-back').addEventListener('click',()=>{
+  hideThemeCenter();
+  inputField.focus();
+});
+
+bar_time_span.forEach(span=>{span.addEventListener('click',()=>{   
+    setTimeCount(span.textContent)
+  })
+})
+bar_words_span.forEach(span=>{span.addEventListener('click',()=>{    
+    setWordCount(span.textContent)
+  })
+})
+
+showAllThemes();
 

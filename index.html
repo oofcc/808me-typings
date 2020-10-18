@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- link rel="icon" href="data:;base64,iVBORw0KGgo=" -->
-    <link rel="shortcut icon" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' height='28' width='28' baseProfile='fill' %3e %3crect width='28' height='28' rx='50%' ry='50%' fill='%23222' /%3e %3ctext x='3' y='20' font-size='12' textLength='22' fill='%23fff'%3e 808 %3c/text%3e%3c/svg%3e" type="image/svg+xml">
+    <link 
+      rel="shortcut icon" 
+      href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' height='28' width='28' baseProfile='fill' %3e %3crect width='28' height='28' rx='50%' ry='50%' fill='%23222' /%3e %3ctext x='3' y='20' font-size='12' textLength='22' fill='%23fff'%3e 808 %3c/text%3e%3c/svg%3e"
+      type="image/svg+xml"
+    >
+
 
     <title>typings test</title>
     <meta name="description" content="typings.808.me is a sleek and modern typing test website. it support many custom themes" />
@@ -45,6 +50,16 @@
         flex-direction: column;
         justify-content: center;
         transform: translateY(-2vh);
+      }
+
+      /* #command-center dl dd span::before{
+      } */
+      #command-center dl dd span{
+        /* border: 1px dotted red; */
+        /* border-left:1px solid rgba(51, 255, 255, 0.4); */
+        border-right:1px solid rgba(125, 125, 125, 0.4);
+        margin: 0;
+        padding: 0 0.5rem 0 0;
       }
 
       #theme-area{
@@ -109,9 +124,12 @@
         margin-left: 0.7rem;
         border: none;
         font: inherit;
-        padding: 0.4rem 1rem;
-        border-radius: 0.2rem;
-        font-size: 1.2rem;
+        padding: 0.2rem 0;
+        border-radius: 0.3rem;
+        /* font-size: 1.5rem; */
+        width:4rem;
+        line-height: 2.4rem;
+        height:2.4rem;
         cursor: pointer;
       }
 
@@ -126,7 +144,8 @@
         color: inherit;
       }
 
-      #footer .button{
+
+      #footer .button,#left-back{
         cursor: pointer;
       }
 
@@ -142,66 +161,102 @@
       #text-display, #redo-button, #footer, #highlight {
         transition: all .4s ease-in-out 0s;
 
-}
+    }
 
     </style>
     <link id="theme" rel="stylesheet" href="themes/light.css" />
   </head>
   <body>
     <h2 id="header">808.me typings</h2>
-    <!-- <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M224%20387.814V512L32 320l192-192v126.912C447.375 260.152 437.794 103.016 380.93 0 521.287 151.707 491.48 394.785 224 387.814z'/%3E%3C/svg%3E" alt=""> -->
-
-    <!-- <img width="50px" src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%3cpath d='M10,10 H90 L50,70'/%3e%3ctext y='90'%3e' %26apos; %23 %25 %26amp; %c2%bf %f0%9f%94%a3%3c/text%3e%3c/svg%3e" alt=""> -->
-
-    <!-- <img style="border:1px solid #fff" src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' height='36' width='36' baseProfile='fill' fill='%23fff' %3e %3ctext x='4' y='26' textLength='28' fill='%23fff'%3e TYP %3c/text%3e%3c/svg%3e" alt=""> -->
-
-    <!-- <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' height='28' width='28' baseProfile='fill' %3e %3crect width='28' height='28' rx='50%' ry='50%' fill='%23222' /%3e %3ctext x='3' y='20' font-size='12' textLength='22' fill='%23fff'%3e 808 %3c/text%3e%3c/svg%3e" alt=""> -->
-
-    
+    <!-- <svg 
+      version="1.0" xmlns="http://www.w3.org/2000/svg"
+      width="12.80" height="12.66" 
+      viewBox="0 0 1280.000000 1266.000000">
+      <g transform="translate(0.000000,1266.000000) scale(0.100000,-0.100000)"
+      fill="#fff" stroke="none">
+        <path d="M6130 12653 c-1136 -47 -2253 -397 -3200 -1002 -1163 -744 -2048
+        -1830 -2525 -3096 -433 -1150 -520 -2406 -249 -3595 169 -740 463 -1430 880
+        -2063 765 -1161 1874 -2034 3189 -2509 977 -354 2044 -467 3080 -328 1388 186
+        2694 829 3675 1810 129 129 1201 1318 1207 1339 2 8 -1951 1746 -1964 1746 -5
+        0 -200 -214 -433 -475 -596 -668 -655 -732 -782 -847 -599 -539 -1284 -857
+        -2083 -964 -292 -39 -726 -36 -1025 7 -1069 153 -1996 719 -2605 1589 -746
+        1066 -863 2457 -305 3632 359 755 979 1375 1745 1744 387 186 728 287 1180
+        351 213 29 712 33 927 5 649 -82 1206 -288 1723 -638 269 -182 481 -372 781
+        -704 153 -168 162 -181 146 -196 -9 -9 -287 -254 -617 -544 -330 -291 -601
+        -532 -603 -537 -2 -4 4 -8 13 -8 8 0 305 -68 658 -150 353 -83 851 -200 1107
+        -260 256 -60 726 -170 1045 -245 319 -75 831 -195 1138 -267 307 -71 560 -128
+        562 -126 3 2 -47 960 -110 2129 -63 1168 -119 2221 -126 2339 -6 118 -14 245
+        -17 282 l-7 67 -520 -459 c-286 -252 -522 -459 -525 -459 -3 -1 -66 67 -140
+        150 -194 219 -425 458 -575 595 -1250 1147 -2934 1759 -4645 1687z"/>
+      </g>
+    </svg>  -->
     <div id="command-center" class="">
       <div class="bar">
-        <div id="left-wing">
-          <span id="word-count">
-            <span id="wc-10" onclick="setWordCount(10)">10</span>
-            <text> / </text>
-            <span id="wc-25" onclick="setWordCount(25)">25</span>
-            <text> / </text>
-            <span id="wc-50" onclick="setWordCount(50)">50</span>
-            <text> / </text>
-            <span id="wc-100" onclick="setWordCount(100)">100</span>
-            <text> / </text>
-            <span id="wc-250" onclick="setWordCount(250)">250</span>
-          </span>
-          <span id="time-count">
-            <span id="tc-15" onclick="setTimeCount(15)">15</span>
-            <text> / </text>
-            <span id="tc-30" onclick="setTimeCount(30)">30</span>
-            <text> / </text>
-            <span id="tc-60" onclick="setTimeCount(60)">60</span>
-            <text> / </text>
-            <span id="tc-120" onclick="setTimeCount(120)">120</span>
-            <text> / </text>
-            <span id="tc-240" onclick="setTimeCount(240)">240</span>
-          </span>
-        </div>
-        <div id="right-wing">WPM: XX / ACC: XX</div>
+        <dl id="left-wing">
+          <dd id="word-count">
+            <span>10</span>
+            <span>25</span>
+            <span>50</span>
+            <span>100</span>
+            <span>250</span>
+          </dd>
+          <dd id="time-count">
+            <span>15</span>
+            <span>30</span>
+            <span>60</span>
+            <span>120</span>
+            <span>240</span>
+          </dd>
+          <i>mode</i>
+        </dl>
+        <div id="right-wing">&nbsp;</div>
       </div>
       <div id="typing-area">
         <div id="text-display"></div>
         <div class="bar">
           <input id="input-field" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" tabindex="1"/>
-          <button id="redo-button" onclick="setText(event)" tabindex="2">redo</button>
+          <button id="redo-button" tabindex="2">
+            <svg version="1.0" 
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.3rem" height="1.3rem" 
+              viewBox="0 0 1280.000000 1266.000000">
+              <g transform="translate(0.000000,1266.000000) scale(0.100000,-0.100000)"
+                fill="#666" stroke="none">
+                <path d="M6130 12653 c-1136 -47 -2253 -397 -3200 -1002 -1163 -744 -2048
+                -1830 -2525 -3096 -433 -1150 -520 -2406 -249 -3595 169 -740 463 -1430 880
+                -2063 765 -1161 1874 -2034 3189 -2509 977 -354 2044 -467 3080 -328 1388 186
+                2694 829 3675 1810 129 129 1201 1318 1207 1339 2 8 -1951 1746 -1964 1746 -5
+                0 -200 -214 -433 -475 -596 -668 -655 -732 -782 -847 -599 -539 -1284 -857
+                -2083 -964 -292 -39 -726 -36 -1025 7 -1069 153 -1996 719 -2605 1589 -746
+                1066 -863 2457 -305 3632 359 755 979 1375 1745 1744 387 186 728 287 1180
+                351 213 29 712 33 927 5 649 -82 1206 -288 1723 -638 269 -182 481 -372 781
+                -704 153 -168 162 -181 146 -196 -9 -9 -287 -254 -617 -544 -330 -291 -601
+                -532 -603 -537 -2 -4 4 -8 13 -8 8 0 305 -68 658 -150 353 -83 851 -200 1107
+                -260 256 -60 726 -170 1045 -245 319 -75 831 -195 1138 -267 307 -71 560 -128
+                562 -126 3 2 -47 960 -110 2129 -63 1168 -119 2221 -126 2339 -6 118 -14 245
+                -17 282 l-7 67 -520 -459 c-286 -252 -522 -459 -525 -459 -3 -1 -66 67 -140
+                150 -194 219 -425 458 -575 595 -1250 1147 -2934 1759 -4645 1687z"/>
+              </g>
+            </svg> 
+            <!-- <svg width="1.5rem" height="1.5rem" 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill-rule="evenodd" clip-rule="evenodd"
+              fill="#777"
+            >
+              <path d="M7 9h-7v-7h1v5.2c1.853-4.237 6.083-7.2 11-7.2 6.623 0 12 5.377 12 12s-5.377 12-12 12c-6.286 0-11.45-4.844-11.959-11h1.004c.506 5.603 5.221 10 10.955 10 6.071 0 11-4.929 11-11s-4.929-11-11-11c-4.66 0-8.647 2.904-10.249 7h5.249v1z"/>
+            </svg>  -->
+          </button>
         </div>
       </div>
     </div>
     <div id="theme-center" class="hidden">
-      <div id="left-wing" onClick="hideThemeCenter();">< back</div>
+      <div id="left-back" class="button">&lt; back</div>
       <div id="theme-area"></div>
     </div>
     <div id="footer">
-      <a href="https://github.com/oofcc/typings#typings" target="_blank" tabindex="3">user guide</a>/
-      <div id="show-themes"class="button" onClick="showThemeCenter();" tabindex="4">themes</div>
+      <a href="https://github.com/oofcc/typings#typings" target="_blank" tabindex="3">Guide</a>/
+      <div id="show-themes"class="button" tabindex="4">Themes</div>
     </div>
-    <script src="main.js"></script>
+    <script src="main.js" type="module"></script>
   </body>
 </html>
